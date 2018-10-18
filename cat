@@ -1,0 +1,61 @@
+<div class="grid-x grid-margin-x large-up-5 medium-up-4 small-up-2 padding-left-1 padding-right-1 padding-bottom-3">
+        <div class="swiper-container scPostCategory h100">
+                <div class="swiper-wrapper h100 boxSizing ptb5">       
+                <?php
+                    $i                      = 0;
+                    foreach ($seccion as $key => $post) {
+                        
+                        $postTitle      = $post->post_title;
+                        $postContent    = $post->post_content;
+                        $postExcerpt    = $post->post_excerpt;
+                        $postGuid       = $post->guid;
+                        $postLink       = $post->formatLink;
+                        
+                        $postAuthor     = $post->author;
+                        $authorName     = $postAuthor["name"];
+                        //$authorPhoto    = $postAuthor["photo"];
+                        $authorLink     = $postAuthor["link"];
+
+                        $postImage      = $post->image;
+                        $imageMedium    = $postImage["medium"];
+                        $imageFull      = $postImage["full"];
+                        $altImage       = trim(implode(", ", array($postImage["title"], $postImage["description"])));
+                        $altImage       = ($altImage == "") ? $postTitle : $altImage;
+
+                        $postVideos     = $post->videos;
+                        $postAudios     = $post->audios;
+                        $postGallery    = $post->gallery;
+
+                        $postTime       = $post->formatTime; 
+                ?>
+                <div class="swiper-slide position-relative  bgs104a overflow-hidden">    
+                    <div class="cell plr3 mtb3">
+                		<div class="grid-x grid-margin-x">
+                			<!--<div class="cell h109 gris"></div>-->
+                            <div class="cell h114 hpx425100 large-12 medium-12 small-12 overflow-hidden position-relative">
+                                <div class="position-absolute w100 h100 overflow-hidden">
+                                    <div class="manageImg lazyPreloader lazyImg w100 h100" alt="<?php print_r($altImage); ?>" title="<?php print_r($altImage); ?>" data-original="<?php print_r($imageMedium); ?>"></div>
+                                </div>
+                            </div>
+                			<div class="cell pt5 h126">
+                			    <a href="<?php print_r($postLink); ?>" title="<?php print_r($postTitle); ?>" alt="<?php print_r($postTitle); ?>"><h3 class="LyonDisplay-Regular fSize25 fSize76822 fSize42516 p-small1 textColor5"><?php print_r(lc($postTitle, 21)); ?></h3></a>
+                			    <h4 class="BentonSans-ExtraLight fSize16 textColor5 p-small11">
+                                    <?php //print_r(lc($postExcerpt, 65)); 
+                                        empty($postExcerpt) ? print_r(lc($postContent, 18)) : print_r(lc($postExcerpt, 65));    
+                                    ?>      
+                                </h4>
+                			</div>
+                			<div class="cell h20 p-small9"><hr></div>
+                		</div>
+                	</div>
+                </div>    
+                <?php
+                    unset($posts["seccion3"][$i]);
+                    $i++;
+                        }/** FIN FOR **/ 
+                    $posts["seccion3"]  = fixPostArray($posts["seccion3"]); 
+                ?>
+            </div>
+            <div class="swiper-pagination swpPostCategory position-relative"></div> 
+        </div>	
+    </div>
